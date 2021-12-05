@@ -2,7 +2,7 @@ import java.io.File
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class SonarSweepTest {
+class AOCDay1Test {
 
     private val path: String = "src/test/resources/sonarsweep.txt"
 
