@@ -10,25 +10,32 @@ class AOCDay4Test {
         val bingoNumbersOrder = getBingoNumbersOrder(lines)
         println(bingoNumbersOrder)
         val playerGrids = getPlayersGrid(lines)
-   //     playBingo(bingoNumbersOrder, playerGrids)
+        playBingo(bingoNumbersOrder, playerGrids)
     }
 
-//    private fun playBingo(bingoNumbersOrder: List<String>, grids: MutableList<PlayerGrid>) {
-//        for (i in bingoNumbersOrder.indices) {
-//            for (j in grids[0].indices) {
-//                if (grids[0][j].contains(bingoNumbersOrder[i]))
-//                    grids[0][j].replace(bingoNumbersOrder[i], "")
-//            }
-//        }
-//    }
+    private fun playBingo(bingoNumbersOrder: List<Int>, grids: MutableList<PlayerGrid>) {
+        for (i in bingoNumbersOrder.indices) {
+            for (j in grids.indices) {
+                grids[j].numberToSelect(bingoNumbersOrder[i])
+            }
 
-    private fun getBingoNumbersOrder(lines: List<String>) = lines.first().split(",")
+            for (index in grids.indices) {
+                if (grids[index].hasARowCompleted()) {
+                    println("player ${index+1} wins with number ${bingoNumbersOrder[i]}")
+                    return
+                }
+            }
+
+        }
+    }
+
+    private fun getBingoNumbersOrder(lines: List<String>) = lines.first().split(",").map { it.toInt() }
 
     private fun readLinesFromFile() = File(path).readLines()
 
     private fun getPlayersGrid(lines: List<String>): MutableList<PlayerGrid> {
-        var grids: MutableList<PlayerGrid> = mutableListOf()
-        var grid = Array(5) { Array(5) { 0 } }
+        val grids: MutableList<PlayerGrid> = mutableListOf()
+        var grid: Array<Array<GridValue>> = Array(5) { Array(5) { GridValue() } }
         var index = 0
 
         val usefulValues = lines.drop(2)
@@ -41,7 +48,7 @@ class AOCDay4Test {
                 index++
             } else {
                 grids.add(PlayerGrid(grid))
-                grid = Array(5) { Array(5) { 0 } }
+                grid = Array(5) { Array(5) { GridValue() } }
                 index = 0
             }
         }
