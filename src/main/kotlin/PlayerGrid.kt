@@ -1,0 +1,1 @@
+data class PlayerGrid(var grid:Array<Array<GridValue>>)

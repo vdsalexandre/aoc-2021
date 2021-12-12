@@ -1,0 +1,1 @@
+data class GridValue(val value: Int, val selected: Boolean = false)
