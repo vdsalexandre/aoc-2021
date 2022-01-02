@@ -12,20 +12,24 @@ data class PlayerGrid(var grid:Array<Array<GridValue>>) {
         }
     }
 
-    fun hasARowCompleted(): Boolean {
+    fun getIfARowCompleted(): MutableList<GridValue> {
+        val gridValues: MutableList<GridValue> = mutableListOf()
+
         for (i in grid.indices) {
             var count = 0
             val row = grid[i]
 
             for (j in row.indices) {
-                if (row[j].selected)
+                if (row[j].selected) {
                     count++
+                    gridValues.add(row[j])
+                }
             }
 
             if (count == 5)
-                return true
+                return gridValues
         }
-        return false
+        return mutableListOf()
     }
 
     fun hasAColumnCompleted(): Boolean {

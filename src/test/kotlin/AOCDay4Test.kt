@@ -20,8 +20,11 @@ class AOCDay4Test {
             }
 
             for (index in grids.indices) {
-                if (grids[index].hasARowCompleted()) {
+                val aRowCompleted = grids[index].getIfARowCompleted()
+
+                if (aRowCompleted.isNotEmpty()) {
                     println("player ${index+1} wins with number ${bingoNumbersOrder[i]}")
+                    aRowCompleted.forEach { print("${it.value} ") }
                     return
                 }
             }
